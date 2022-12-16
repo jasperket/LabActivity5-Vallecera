@@ -106,6 +106,8 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <editable value="false"/>
+                  <enabled value="true"/>
                   <font size="16"/>
                 </properties>
               </component>
