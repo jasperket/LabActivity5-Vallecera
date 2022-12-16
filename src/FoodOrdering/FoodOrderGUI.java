@@ -42,30 +42,39 @@ public class FoodOrderGUI extends JFrame {
 
         btnOrder.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                double cost = 0;
-                double[] prices = {100,80,65,55,50,40};
-                double[] discounts = {0,0.05,0.1,0.15};
-                double chosenDisc = 0;
-                boolean foodSelected = false;
-                boolean discSelected = false;
-                for(int i = 0; i < foods.size(); i++) {
-                    if(foods.get(i).isSelected()) {
-                        cost += prices[i];
-                        foodSelected = true;
+            public void actionPerformed(ActionEvent e) throws IllegalArgumentException {
+                try {
+                    double cost = 0;
+                    double[] prices = {100,80,65,55,50,40};
+                    double[] discounts = {0,0.05,0.1,0.15};
+                    double chosenDisc = 0;
+                    boolean foodSelected = false;
+                    boolean discSelected = false;
+                    for(int i = 0; i < foods.size(); i++) {
+                        if(foods.get(i).isSelected()) {
+                            cost += prices[i];
+                            foodSelected = true;
+                        }
                     }
-                }
-                for(int i = 0; i < discs.size(); i++) {
-                    if(discs.get(i).isSelected()) {
-                        chosenDisc = discounts[i];
-                        discSelected = true;
+                    if(!foodSelected)
+                        throw new IllegalArgumentException("No food selected");
+                    for(int i = 0; i < discs.size(); i++) {
+                        if(discs.get(i).isSelected()) {
+                            chosenDisc = discounts[i];
+                            discSelected = true;
+                        }
                     }
-                }
-                
-                double deduction = cost*chosenDisc;
-                cost -= deduction;
+                    if(!discSelected)
+                        throw new IllegalArgumentException("No discount selected");
 
-                JOptionPane.showMessageDialog(null,String.format("The total price is Php %.2f", cost));
+                    double deduction = cost*chosenDisc;
+                    cost -= deduction;
+
+                    JOptionPane.showMessageDialog(null,String.format("The total price is Php %.2f", cost));
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null,ex.getMessage());
+                }
+
             }
         });
     }
