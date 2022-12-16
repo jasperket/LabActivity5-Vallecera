@@ -20,26 +20,32 @@ public class SimpleCalcGUI extends JFrame {
         btnCompute.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int num1 = Integer.parseInt(tfNumber1.getText());
-                int num2 = Integer.parseInt(tfNumber2.getText());
-                int result;
-                switch (cbOperations.getSelectedItem().toString()) {
-                    case "+":
-                        result = num1+num2;
-                        lblResult.setText(String.valueOf(result));
-                        break;
-                    case "-":
-                        result = num1-num2;
-                        lblResult.setText(String.valueOf(result));
-                        break;
-                    case "*":
-                        result = num1*num2;
-                        lblResult.setText(String.valueOf(result));
-                        break;
-                    case "/":
-                        result = num1/num2;
-                        lblResult.setText(String.valueOf(result));
-                        break;
+                try {
+                    int num1 = Integer.parseInt(tfNumber1.getText());
+                    int num2 = Integer.parseInt(tfNumber2.getText());
+                    int result;
+                    switch (cbOperations.getSelectedItem().toString()) {
+                        case "+":
+                            result = num1+num2;
+                            lblResult.setText(String.valueOf(result));
+                            break;
+                        case "-":
+                            result = num1-num2;
+                            lblResult.setText(String.valueOf(result));
+                            break;
+                        case "*":
+                            result = num1*num2;
+                            lblResult.setText(String.valueOf(result));
+                            break;
+                        case "/":
+                            result = num1/num2;
+                            lblResult.setText(String.valueOf(result));
+                            break;
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null,ex.getMessage());
+                } catch (ArithmeticException ex) {
+                    JOptionPane.showMessageDialog(null,ex.getMessage());
                 }
             }
         });
